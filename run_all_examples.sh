@@ -102,12 +102,6 @@ echo "Failed runs: $failed_count"
 
 if [ $failed_count -gt 0 ]; then
     echo
-    echo "[NOTE] Some examples failed. This might be due to:"
-    echo "       - Missing license keys"
-    echo "       - Missing sample files"
-    echo "       - .NET version compatibility"
-    echo "       - File access permissions"
-    echo
     echo "[TIP] Check individual example README.md files for specific requirements."
 fi
 

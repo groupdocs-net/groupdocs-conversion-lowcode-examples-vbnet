@@ -97,12 +97,6 @@ Write-Host "Failed runs: $failedCount" -ForegroundColor ${if ($failedCount -gt 0
 
 if ($failedCount -gt 0) {
     Write-Host ""
-    Write-Host "[NOTE] Some examples failed. This might be due to:" -ForegroundColor Yellow
-    Write-Host "       - Missing license keys" -ForegroundColor White
-    Write-Host "       - Missing sample files" -ForegroundColor White
-    Write-Host "       - .NET version compatibility" -ForegroundColor White
-    Write-Host "       - File access permissions" -ForegroundColor White
-    Write-Host ""
     Write-Host "[TIP] Check individual example README.md files for specific requirements." -ForegroundColor Cyan
 }
 
