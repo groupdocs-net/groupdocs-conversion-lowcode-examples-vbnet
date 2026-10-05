@@ -1,38 +1,38 @@
-# Set License from File Example
+# Set License from File
 
-This example demonstrates how to set the GroupDocs.Conversion license from a license file using GroupDocs.Conversion.LowCode.
+The following code demonstrates setting a license from a file:
 
-## Features
+## Code Example
 
-- Loads and applies a license from a file path
-- Checks for the existence of the license file
-- Provides user feedback if the license file is missing
+```vb
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        SetLicenseFromFile()
+    End Sub
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- A valid GroupDocs license file (e.g., `GroupDocs.Conversion.LowCode.lic`)
+    Private Sub SetLicenseFromFile()
+        ' The path to the license file. The path can be relative or absolute.
+        Dim licensePath As String = "./GroupDocs.Conversion.LowCode.lic"
+
+        ' Apply the license. 
+        License.Set(licensePath)
+    End Sub
+End Module
+```
 
 ## How to Run
 
-1. Build the project
-2. Place your license file (e.g., `GroupDocs.Conversion.LowCode.lic`) in the output directory or update the path in the code
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Edit `Program.vb` so that it uses your license: the path to your license file, or your public and private keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Learn More
 
-- If the license file exists, the license will be applied and a success message will be shown
-- If the license file does not exist, a warning message will be shown
-
-## Code Explanation
-
-The example demonstrates:
-- Checking for the existence of the license file
-- Applying the license using `License.Set(licensePath)`
-- Providing user feedback for both success and failure cases
-
-## Files
-
-- `Program.vb` - Main program file
-- `GroupDocs.Conversion.LowCode.lic` - License file (not included, must be provided by user) 
+- [Licensing](https://docs.groupdocs.net/conversion/licensing/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

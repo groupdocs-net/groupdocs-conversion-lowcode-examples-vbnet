@@ -1,49 +1,47 @@
-# Save to File Path Example
+# Example 1: Save to File Path
 
-This example demonstrates how to save converted documents to a file path using GroupDocs.Conversion.LowCode.
+The following example shows how to save a converted PDF file to the `business-plan.pdf` file by specifying the relative file path.  
+The file is going to be saved in the current directory.
 
-## Features
+## Code Example
 
-- Converts DOCX files to PDF format
-- Saves converted documents to file path
-- Uses environment variables for license keys
-- Simple file path-based saving approach
+```vb
+Imports System
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+        ' Apply the license
+        License.Set(publicKey, privateKey)
 
-## Environment Variables
+        ' Create a converter from file path
+        Dim converter As New DocxToPdfConverter("business-plan.docx")
 
-Set the following environment variables before running the example:
-
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert DOCX to PDF
+        converter.Convert("business-plan.pdf")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `business-plan.docx` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `business-plan.pdf` file in the same directory.
+- `business-plan.docx`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating a DocxToPdfConverter instance
-- Converting the DOCX file to PDF format
-- Saving the converted document to a file path
-
-## Files
-
-- `Program.vb` - Main program file
-- `business-plan.docx` - Sample input file
-- `business-plan.pdf` - Generated output file (after running) 
+- [Saving Converted Documents](https://docs.groupdocs.net/conversion/developer-guide/saving-converted-documents/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

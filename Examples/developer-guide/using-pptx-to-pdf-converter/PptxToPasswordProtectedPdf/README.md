@@ -1,56 +1,47 @@
-# PPTX to Password Protected PDF
+# Convert PPTX to Password-Protected PDF
 
-This example demonstrates how to convert a PPTX presentation to password-protected PDF format using GroupDocs.Conversion.LowCode.
+You can protect the output PDF with a password by setting the [Password](https://reference.groupdocs.net/conversion/GroupDocs.Conversion.Options.Convert/PdfConvertOptions/Password/) property in `PdfConvertOptions` class.
 
-## Features
+## Code Example
 
-- Converts PPTX presentations to PDF format
-- Applies password protection to the output PDF file
-- Uses environment variables for license configuration
-- Simple and clean API usage
+```vb
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-## Environment Variables
+        ' Create the converter
+        Dim converter As New PptxToPdfConverter("presentation.pptx")
 
-Set the following environment variables with your GroupDocs license keys:
-
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert to password-protected PDF
+        converter.Convert("protected.pdf", Sub(convertOptions)
+            convertOptions.Password = "12345"
+        End Sub)
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Ensure you have the required environment variables set
-2. Build the project: `dotnet build`
-3. Run the example: `dotnet run`
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will:
-- Load the source PPTX file (`presentation.pptx`)
-- Convert it to password-protected PDF format
-- Save the result as `protected.pdf` with password "12345"
+- `presentation.pptx`
 
-## Code Explanation
+## Learn More
 
-The example uses the `PptxToPdfConverter` class to convert the PPTX presentation to PDF format. During the conversion, it applies password protection using the `Password` option in the convert options.
-
-```vb
-Dim converter As New PptxToPdfConverter("presentation.pptx")
-
-converter.Convert("protected.pdf", Sub(convertOptions)
-    convertOptions.Password = "12345"
-End Sub)
-```
-
-## Files
-
-- `Program.vb` - Main program file containing the conversion logic
-- `PptxToPasswordProtectedPdf.vbproj` - Project file
-- `presentation.pptx` - Sample PPTX presentation file
-- `protected.pdf` - Output password-protected PDF file (generated after running the example) 
+- [Using PPTX to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-pptx-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

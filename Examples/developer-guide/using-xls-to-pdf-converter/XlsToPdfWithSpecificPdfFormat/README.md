@@ -1,49 +1,50 @@
-# XLS to PDF with Specific PDF Format Example
+# Convert XLS to PDF with Specific PDF Format
 
-This example demonstrates how to convert XLS files to PDF format with specific PDF/A-1b format using GroupDocs.Conversion.LowCode.
+You can specify the PDF format for the output file using the [PdfFormat](https://reference.groupdocs.net/conversion/GroupDocs.Conversion.Options.Convert/PdfOptions/PdfFormat/) property in `PdfOptions` class. This allows you to create PDF files that conform to specific standards like PDF/A for archiving or PDF/X for print production.
 
-## Features
+The following example shows how to convert an XLS file to PDF/A-1b format, which is commonly used for long-term archiving:
 
-- Converts XLS files to PDF format
-- Sets specific PDF/A-1b format for archiving compliance
-- Uses environment variables for license keys
-- Archive-compliant PDF generation
+## Code Example
 
-## Prerequisites
+```vb
+Imports GroupDocs.Conversion.LowCode
+Imports GroupDocs.Conversion.Options.Convert
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey As String = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey As String = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-## Environment Variables
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-Set the following environment variables before running the example:
+        ' Create the converter
+        Dim converter As New XlsToPdfConverter("cost-analysis.xls")
 
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert to PDF/A-1b format for archiving
+        converter.Convert("converted.pdf", Sub(convertOptions)
+            convertOptions.PdfOptions.PdfFormat = PdfFormats.PdfA_1B
+        End Sub)
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `cost-analysis.xls` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `converted.pdf` file in PDF/A-1b format in the same directory.
+- `cost-analysis.xls`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating an XlsToPdfConverter instance
-- Setting conversion options to specify PDF/A-1b format
-- Converting the XLS file to archive-compliant PDF format
-
-## Files
-
-- `Program.vb` - Main program file
-- `cost-analysis.xls` - Sample input file
-- `converted.pdf` - Generated PDF/A-1b output file (after running) 
+- [Using XLS to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-xls-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

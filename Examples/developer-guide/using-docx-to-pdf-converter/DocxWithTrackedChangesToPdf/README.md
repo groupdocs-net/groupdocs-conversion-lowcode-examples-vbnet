@@ -1,54 +1,49 @@
-# DOCX with Tracked Changes to PDF
+# Convert DOCX with Tracked Changes to PDF
 
-This example demonstrates how to convert a DOCX file with tracked changes to PDF format while hiding the tracked changes using GroupDocs.Conversion.LowCode.
+By default, tracked changes are converted and displayed in the output PDF document. See this [tracked-changes.pdf](https://docs.groupdocs.net/conversion/_sample_files/developer-guide/using-docx-to-pdf-converter/tracked-changes.pdf) that includes the list of changes.
 
-## Features
+The following example shows how to convert a DOCX file that contains tracked changes and save a clean PDF file without those revisions.
 
-- Converts DOCX files to PDF format
-- Hides tracked changes during conversion
-- Uses environment variables for license configuration
-- Simple and clean API usage
+## Code Example
 
-## Prerequisites
+```vb
+Imports GroupDocs.Conversion.LowCode
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-## Environment Variables
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-Set the following environment variables with your GroupDocs license keys:
+        ' Hide tracked changes through load options
+        Dim converter As New DocxToPdfConverter("tracked-changes.docx", Sub(options)
+            options.HideWordTrackedChanges = True
+        End Sub)
 
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert DOCX to PDF
+        converter.Convert("clean.pdf")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Ensure you have the required environment variables set
-2. Build the project: `dotnet build`
-3. Run the example: `dotnet run`
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will:
-- Load the source DOCX file (`tracked-changes.docx`)
-- Convert it to PDF format while hiding tracked changes
-- Save the result as `clean.pdf`
+- `tracked-changes.docx`
 
-## Code Explanation
+## Learn More
 
-The example uses the `DocxToPdfConverter` class with the `HideWordTrackedChanges` option set to `True`. This ensures that all tracked changes (insertions, deletions, formatting changes) in the source DOCX file are hidden during the conversion to PDF format.
-
-```vb
-Dim converter As New DocxToPdfConverter("tracked-changes.docx", Sub(options)
-    options.HideWordTrackedChanges = True
-End Sub)
-```
-
-## Files
-
-- `Program.vb` - Main program file containing the conversion logic
-- `DocxWithTrackedChangesToPdf.vbproj` - Project file
-- `tracked-changes.docx` - Sample DOCX file with tracked changes
-- `clean.pdf` - Output PDF file without tracked changes (generated after running the example) 
+- [Using DOCX to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-docx-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

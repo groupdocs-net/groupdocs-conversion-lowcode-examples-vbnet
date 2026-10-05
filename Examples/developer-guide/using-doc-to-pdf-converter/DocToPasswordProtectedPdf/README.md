@@ -1,49 +1,47 @@
-# DOC to Password Protected PDF Example
+# Convert DOC to Password-Protected PDF
 
-This example demonstrates how to convert DOC files to password-protected PDF format using GroupDocs.Conversion.LowCode.
+You can protect the output PDF with a password by setting the [Password](https://reference.groupdocs.net/conversion/GroupDocs.Conversion.Options.Convert/PdfConvertOptions/Password/) property in `PdfConvertOptions` class.
 
-## Features
+## Code Example
 
-- Converts DOC files to password-protected PDF format
-- Sets password protection on the output PDF
-- Uses environment variables for license keys
-- Secure document conversion with password protection
+```vb
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-## Environment Variables
+        ' Create the converter
+        Dim converter As New DocToPdfConverter("business-plan.doc")
 
-Set the following environment variables before running the example:
-
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert to password-protected PDF
+        converter.Convert("protected.pdf", Sub(convertOptions)
+            convertOptions.Password = "12345"
+        End Sub)
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `business-plan.doc` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `protected.pdf` file with password protection in the same directory.
+- `business-plan.doc`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating a DocToPdfConverter instance
-- Setting conversion options to add password protection
-- Converting the DOC file to password-protected PDF format
-
-## Files
-
-- `Program.vb` - Main program file
-- `business-plan.doc` - Sample input file
-- `protected.pdf` - Generated password-protected output file (after running) 
+- [Using DOC to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-doc-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

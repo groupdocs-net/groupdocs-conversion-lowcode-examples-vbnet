@@ -1,54 +1,49 @@
-# PPT with Hidden Slides to PDF
+# Convert PPT with Hidden Slides
 
-This example demonstrates how to convert a PPT presentation with hidden slides to PDF format while including the hidden slides using GroupDocs.Conversion.LowCode.
+By default hidden slides are not added to the converted PDF document.
 
-## Features
+The following example shows how to include hidden slides when converting PPT to PDF using the `ShowHiddenSlides` property.
 
-- Converts PPT presentations to PDF format
-- Includes hidden slides in the conversion process
-- Uses environment variables for license configuration
-- Simple and clean API usage
+## Code Example
 
-## Prerequisites
+```vb
+Imports GroupDocs.Conversion.LowCode
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-## Environment Variables
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-Set the following environment variables with your GroupDocs license keys:
+        ' Show hidden slides through load options
+        Dim converter As New PptToPdfConverter("with-hidden-slides.ppt", Sub(options)
+            options.ShowHiddenSlides = True
+        End Sub)
 
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert PPT to PDF
+        converter.Convert("with-hidden-slides.pdf")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Ensure you have the required environment variables set
-2. Build the project: `dotnet build`
-3. Run the example: `dotnet run`
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will:
-- Load the source PPT file (`with-hidden-slides.ppt`)
-- Convert it to PDF format including hidden slides
-- Save the result as `with-hidden-slides.pdf`
+- `with-hidden-slides.ppt`
 
-## Code Explanation
+## Learn More
 
-The example uses the `PptToPdfConverter` class with the `ShowHiddenSlides` option set to `True`. This ensures that all hidden slides in the source PPT presentation are included in the PDF conversion.
-
-```vb
-Dim converter As New PptToPdfConverter("with-hidden-slides.ppt", Sub(options)
-    options.ShowHiddenSlides = True
-End Sub)
-```
-
-## Files
-
-- `Program.vb` - Main program file containing the conversion logic
-- `PptWithHiddenSlides.vbproj` - Project file
-- `with-hidden-slides.ppt` - Sample PPT presentation file with hidden slides
-- `with-hidden-slides.pdf` - Output PDF file including hidden slides (generated after running the example) 
+- [Using PPT to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-ppt-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

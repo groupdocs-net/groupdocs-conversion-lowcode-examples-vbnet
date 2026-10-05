@@ -1,47 +1,41 @@
-# Copy the Code Example
+# Step 5: Copy the Code Example
 
-This example demonstrates how to convert an XLSX file to PDF format using GroupDocs.Conversion.LowCode.
+Replace the contents of your `Program` file with the example code below.
 
-## Features
+## Code Example
 
-- Converts XLSX files to PDF format
-- Uses environment variables for license keys
-- Simple and straightforward conversion process
+```vb
+Imports System
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        Dim publicKey As String = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey As String = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+        License.Set(publicKey, privateKey)
 
-## Environment Variables
-
-Set the following environment variables before running the example:
-
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        Dim converter As New XlsxToPdfConverter("cost-analysis.xlsx")
+        converter.Convert("cost-analysis.pdf")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `cost-analysis.xlsx` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `cost-analysis.pdf` file in the same directory.
+- `cost-analysis.xlsx`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating an XlsxToPdfConverter instance
-- Converting the XLSX file to PDF format
-
-## Files
-
-- `Program.vb` - Main program file
-- `cost-analysis.xlsx` - Sample input file
-- `cost-analysis.pdf` - Generated output file (after running) 
+- [Developer Guide](https://docs.groupdocs.net/conversion/developer-guide/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

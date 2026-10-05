@@ -1,49 +1,49 @@
-# DOC with Tracked Changes to PDF Example
+# Convert DOC with Tracked Changes to PDF
 
-This example demonstrates how to convert DOC files with tracked changes to PDF format while hiding the tracked changes using GroupDocs.Conversion.LowCode.
+By default, tracked changes are converted and displayed in the output PDF document. See this [tracked-changes.pdf](https://docs.groupdocs.net/conversion/_sample_files/developer-guide/using-doc-to-pdf-converter/tracked-changes.pdf) that includes the list of changes.
 
-## Features
+The following example shows how to convert a DOC file that contains tracked changes and save a clean PDF file without those revisions.
 
-- Converts DOC files with tracked changes to PDF format
-- Hides tracked changes during conversion
-- Uses environment variables for license keys
-- Clean PDF output without revision marks
+## Code Example
 
-## Prerequisites
+```vb
+Imports GroupDocs.Conversion.LowCode
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-## Environment Variables
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-Set the following environment variables before running the example:
+        ' Hide tracked changes through load options
+        Dim converter As New DocToPdfConverter("tracked-changes.doc", Sub(options)
+            options.HideWordTrackedChanges = True
+        End Sub)
 
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert DOC to PDF
+        converter.Convert("clean.pdf")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `tracked-changes.doc` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `clean.pdf` file without tracked changes in the same directory.
+- `tracked-changes.doc`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating a DocToPdfConverter instance with load options
-- Setting HideWordTrackedChanges to True to exclude tracked changes
-- Converting the DOC file to PDF format without revision marks
-
-## Files
-
-- `Program.vb` - Main program file
-- `tracked-changes.doc` - Sample input file with tracked changes
-- `clean.pdf` - Generated output file without tracked changes (after running) 
+- [Using DOC to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-doc-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

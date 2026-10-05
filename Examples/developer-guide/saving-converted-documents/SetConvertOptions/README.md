@@ -1,49 +1,51 @@
-# Set Convert Options Example
+# Example 3: Set Convert Options
 
-This example demonstrates how to set conversion options when saving documents using GroupDocs.Conversion.LowCode.
+You can use optional convert options to adjust the output according to your requirements. Each converter has its own corresponding convert options.
 
-## Features
+The following code example shows how to set convert options to convert the first three pages of a DOCX document to a PDF file.
 
-- Converts DOCX files to PDF format
-- Sets custom conversion options
-- Converts specific pages only (pages 1, 2, and 3)
-- Uses environment variables for license keys
+## Code Example
 
-## Prerequisites
+```vb
+Imports System
+Imports System.Collections.Generic
+Imports GroupDocs.Conversion.LowCode
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey As String = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey As String = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-## Environment Variables
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-Set the following environment variables before running the example:
+        ' Create a converter for the DOCX file
+        Dim converter As New DocxToPdfConverter("business-plan.docx")
 
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Save first three pages to PDF
+        converter.Convert("pages-1-2-3.pdf", Sub(convertOptions)
+                                                convertOptions.Pages = New List(Of Integer) From {1, 2, 3}
+                                            End Sub)
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `business-plan.docx` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `pages-1-2-3.pdf` file containing only the first three pages of the original document.
+- `business-plan.docx`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating a DocxToPdfConverter instance
-- Setting conversion options to specify which pages to convert
-- Converting only selected pages (1, 2, and 3) to PDF format
-
-## Files
-
-- `Program.vb` - Main program file
-- `business-plan.docx` - Sample input file
-- `pages-1-2-3.pdf` - Generated output file with selected pages (after running) 
+- [Saving Converted Documents](https://docs.groupdocs.net/conversion/developer-guide/saving-converted-documents/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

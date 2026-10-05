@@ -1,49 +1,50 @@
-# PDF with Annotations to DOCX Without Annotations Example
+# Convert PDF with Annotations to DOCX without Annotations
 
-This example demonstrates how to convert PDF files with annotations to DOCX format while hiding the annotations using GroupDocs.Conversion.LowCode.
+By default, annotations are added to the output DOCX file, see this [with-annotations.pdf](https://docs.groupdocs.net/conversion/_sample_files/developer-guide/using-pdf-to-docx-converter/with-annotations.pdf) (text `HOME BASED PROFESSIONAL SERVICES` is highlighted) as an example of PDF file with annotations.
 
-## Features
+The following example shows how to convert a PDF file that contains annotations and save a DOCX file without annotations.
 
-- Converts PDF files with annotations to DOCX format
-- Hides annotations during conversion using HidePdfAnnotations
-- Uses environment variables for license keys
-- Clean DOCX output without annotation elements
+## Code Example
 
-## Prerequisites
+```vb
+Imports System
+Imports GroupDocs.Conversion.LowCode
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey As String = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey As String = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-## Environment Variables
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-Set the following environment variables before running the example:
+        ' Hide annotations using HidePdfAnnotations
+        Dim converter As New PdfToDocxConverter("with-annotations.pdf", Sub(options)
+                                                                             options.HidePdfAnnotations = True
+                                                                         End Sub)
 
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert PDF to DOCX
+        converter.Convert("no-annotations.docx")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `with-annotations.pdf` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `no-annotations.docx` file without annotations in the same directory.
+- `with-annotations.pdf`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating a PdfToDocxConverter instance with load options
-- Setting HidePdfAnnotations to True to exclude annotations
-- Converting the PDF file to DOCX format without annotations
-
-## Files
-
-- `Program.vb` - Main program file
-- `with-annotations.pdf` - Sample input file with annotations
-- `no-annotations.docx` - Generated output file without annotations (after running) 
+- [Using PDF to DOCX Converter](https://docs.groupdocs.net/conversion/developer-guide/using-pdf-to-docx-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

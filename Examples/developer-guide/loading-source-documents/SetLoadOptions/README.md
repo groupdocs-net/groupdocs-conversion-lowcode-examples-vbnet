@@ -1,49 +1,47 @@
-# Set Load Options Example
+# Example 3: Set Load Options
 
-This example demonstrates how to set load options for protected documents and convert them to PDF format using GroupDocs.Conversion.LowCode.
+You can use the optional constructor parameter to apply custom load options such as passwords for protected files.
 
-## Features
+## Code Example
 
-- Handles password-protected documents
-- Sets custom load options for document loading
-- Converts protected DOCX files to unprotected PDF format
-- Uses environment variables for license keys
+```vb
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-## Environment Variables
+        ' Provide password through load options
+        Dim converter As New DocxToPdfConverter("protected.docx", Sub(options)
+            options.Password = "12345"
+        End Sub)
 
-Set the following environment variables before running the example:
-
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert DOCX to PDF
+        converter.Convert("not-protected.pdf")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `protected.docx` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `not-protected.pdf` file in the same directory.
+- `protected.docx`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating a DocxToPdfConverter instance with load options
-- Setting password for protected document access
-- Converting the protected DOCX file to unprotected PDF format
-
-## Files
-
-- `Program.vb` - Main program file
-- `protected.docx` - Sample password-protected input file
-- `not-protected.pdf` - Generated unprotected output file (after running) 
+- [Loading Source Documents](https://docs.groupdocs.net/conversion/developer-guide/loading-source-documents/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

@@ -1,49 +1,47 @@
-# HTML to PDF Skipping External Resources Example
+# Skip External Resources Referenced in HTML
 
-This example demonstrates how to convert HTML files to PDF format while skipping external resources using GroupDocs.Conversion.LowCode.
+The following example shows how to skip external resources when converting HTML to PDF using the `SkipExternalResources` property.
 
-## Features
+## Code Example
 
-- Converts HTML files to PDF format
-- Skips external resources (images, CSS, etc.) during conversion
-- Uses environment variables for license keys
-- Faster conversion by excluding external dependencies
+```vb
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-## Environment Variables
+        ' Skip external resources through load options
+        Dim converter As New HtmlToPdfConverter("with-image.html", Sub(options)
+            options.SkipExternalResources = True
+        End Sub)
 
-Set the following environment variables before running the example:
-
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert HTML to PDF
+        converter.Convert("without-image.pdf")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `with-image.html` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `without-image.pdf` file without external resources in the same directory.
+- `with-image.html`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating an HtmlToPdfConverter instance with load options
-- Setting SkipExternalResources to True to exclude external content
-- Converting the HTML file to PDF format without external resources
-
-## Files
-
-- `Program.vb` - Main program file
-- `with-image.html` - Sample input file with external resources
-- `without-image.pdf` - Generated output file without external resources (after running) 
+- [Using HTML to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-html-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

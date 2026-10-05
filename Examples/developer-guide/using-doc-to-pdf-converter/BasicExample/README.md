@@ -1,47 +1,46 @@
-# Basic DOC to PDF Conversion Example
+# Basic Example
 
-This example demonstrates how to convert DOC files to PDF format using GroupDocs.Conversion.LowCode.
+The following example shows the most common use case for converting DOC document to PDF. The source DOC file is loaded from a current folder. The converted file is saved to the same folder.
 
-## Features
+## Code Example
 
-- Converts DOC files to PDF format
-- Uses environment variables for license keys
-- Simple and straightforward conversion process
+```vb
+Imports System
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+        ' Apply the license
+        License.Set(publicKey, privateKey)
 
-## Environment Variables
+        ' Create a converter from file path
+        Dim converter As New DocToPdfConverter("business-plan.doc")
 
-Set the following environment variables before running the example:
-
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert DOC to PDF
+        converter.Convert("business-plan.pdf")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `business-plan.doc` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `business-plan.pdf` file in the same directory.
+- `business-plan.doc`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating a DocToPdfConverter instance
-- Converting the DOC file to PDF format
-
-## Files
-
-- `Program.vb` - Main program file
-- `business-plan.doc` - Sample input file
-- `business-plan.pdf` - Generated output file (after running) 
+- [Using DOC to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-doc-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

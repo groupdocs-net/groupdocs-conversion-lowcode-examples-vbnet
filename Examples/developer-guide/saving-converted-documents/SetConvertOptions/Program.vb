@@ -11,7 +11,7 @@ Module Program
         ' Apply license
         License.Set(publicKey, privateKey)
 
-        ' Provide password through load options
+        ' Create a converter for the DOCX file
         Dim converter As New DocxToPdfConverter("business-plan.docx")
 
         ' Save first three pages to PDF

@@ -1,5 +1,5 @@
 Imports GroupDocs.Conversion.LowCode
-Imports GroupDocs.Conversion.Options.Convert
+Imports GroupDocs.Conversion.Options
 
 Module Program
     Sub Main()
@@ -15,7 +15,7 @@ Module Program
 
         ' Convert to DOCX with A4 page size
         converter.Convert("a4-size.docx", Sub(convertOptions)
-            convertOptions.PageSize = PageSize.A4
+            convertOptions.SizeSettings = New PageSizeOptions With {.PageSize = PageSize.A4}
         End Sub)
     End Sub
 End Module

@@ -1,56 +1,50 @@
-# XLSX to PDF with Specific PDF Format
+# Convert XLSX to PDF with Specific PDF Format
 
-This example demonstrates how to convert an XLSX file to PDF with a specific PDF format (PDF/A-1b) for archiving purposes using GroupDocs.Conversion.LowCode.
+You can specify the PDF format for the output file using the [PdfFormat](https://reference.groupdocs.net/conversion/GroupDocs.Conversion.Options.Convert/PdfOptions/PdfFormat/) property in `PdfOptions` class. This allows you to create PDF files that conform to specific standards like PDF/A for archiving or PDF/X for print production.
 
-## Features
+The following example shows how to convert an XLSX file to PDF/A-1b format, which is commonly used for long-term archiving:
 
-- Converts XLSX files to PDF format
-- Specifies PDF/A-1b format for long-term archiving
-- Uses environment variables for license configuration
-- Simple and clean API usage
+## Code Example
 
-## Prerequisites
+```vb
+Imports GroupDocs.Conversion.LowCode
+Imports GroupDocs.Conversion.Options.Convert
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey As String = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey As String = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-## Environment Variables
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-Set the following environment variables with your GroupDocs license keys:
+        ' Create the converter
+        Dim converter As New XlsxToPdfConverter("cost-analysis.xlsx")
 
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert to PDF/A-1b format for archiving
+        converter.Convert("archived-cost-analysis.pdf", Sub(convertOptions)
+            convertOptions.PdfOptions.PdfFormat = PdfFormats.PdfA_1B
+        End Sub)
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Ensure you have the required environment variables set
-2. Build the project: `dotnet build`
-3. Run the example: `dotnet run`
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will:
-- Load the source XLSX file (`cost-analysis.xlsx`)
-- Convert it to PDF/A-1b format for archiving
-- Save the result as `archived-cost-analysis.pdf`
+- `cost-analysis.xlsx`
 
-## Code Explanation
+## Learn More
 
-The example uses the `XlsxToPdfConverter` class to convert the XLSX file to PDF format. During the conversion, it specifies PDF/A-1b format using the `PdfFormat` option in the PDF options. PDF/A-1b is designed for long-term archiving and ensures document preservation.
-
-```vb
-Dim converter As New XlsxToPdfConverter("cost-analysis.xlsx")
-
-converter.Convert("archived-cost-analysis.pdf", Sub(convertOptions)
-    convertOptions.PdfOptions.PdfFormat = PdfFormats.PdfA_1B
-End Sub)
-```
-
-## Files
-
-- `Program.vb` - Main program file containing the conversion logic
-- `XlsxToPdfWithSpecificPdfFormat.vbproj` - Project file
-- `cost-analysis.xlsx` - Sample XLSX file
-- `archived-cost-analysis.pdf` - Output PDF/A-1b file (generated after running the example) 
+- [Using XLSX to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-xlsx-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

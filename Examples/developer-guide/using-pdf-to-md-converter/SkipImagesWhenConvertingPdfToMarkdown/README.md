@@ -1,49 +1,47 @@
-# PDF to Markdown Skipping Images Example
+# Skip Images when converting PDF to Markdown
 
-This example demonstrates how to convert PDF files to Markdown format while skipping images using GroupDocs.Conversion.LowCode.
+By default, images are converted to base64 strings and embedded directly in the Markdown file. You can control this behavior using the [ExportImagesAsBase64](https://reference.groupdocs.net/conversion/GroupDocs.Conversion.Options.Convert/MarkdownOptions/ExportImagesAsBase64/) property in `MarkdownOptions` class. When set to `false`, images are not included into final Markdown file.
 
-## Features
+## Code Example
 
-- Converts PDF files to Markdown format
-- Skips images during conversion by disabling base64 export
-- Uses environment variables for license keys
-- Cleaner Markdown output without embedded images
+```vb
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-## Environment Variables
+        ' Create the converter
+        Dim converter As New PdfToMdConverter("business-plan.pdf")
 
-Set the following environment variables before running the example:
-
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert to Markdown without embedding images as base64
+        converter.Convert("without-images.md", Sub(convertOptions)
+            convertOptions.MarkdownOptions.ExportImagesAsBase64 = False
+        End Sub)
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `business-plan.pdf` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `without-images.md` file without embedded images in the same directory.
+- `business-plan.pdf`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating a PdfToMdConverter instance
-- Setting MarkdownOptions to disable image export as base64
-- Converting the PDF file to Markdown format without images
-
-## Files
-
-- `Program.vb` - Main program file
-- `business-plan.pdf` - Sample input file
-- `without-images.md` - Generated output file without images (after running) 
+- [Using PDF to MD Converter](https://docs.groupdocs.net/conversion/developer-guide/using-pdf-to-md-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

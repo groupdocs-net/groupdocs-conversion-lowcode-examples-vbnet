@@ -1,54 +1,47 @@
-# PPT with Preserved Document Structure for Accessible PDF
+# Convert PPT with Preserved Document Structure for Accessible PDF
 
-This example demonstrates how to convert a PPT presentation to PDF format while preserving document structure for better accessibility using GroupDocs.Conversion.LowCode.
+The following example shows how to convert a PPT file to an accessible PDF by preserving the document structure using the `PreserveDocumentStructure` property. This is useful for creating PDFs that are more accessible to screen readers and assistive technologies.
 
-## Features
+## Code Example
 
-- Converts PPT presentations to PDF format
-- Preserves document structure for accessibility compliance
-- Uses environment variables for license configuration
-- Simple and clean API usage
+```vb
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-## Environment Variables
+        ' Preserve document structure for accessible PDF
+        Dim converter As New PptToPdfConverter("presentation.ppt", Sub(options)
+            options.PreserveDocumentStructure = True
+        End Sub)
 
-Set the following environment variables with your GroupDocs license keys:
-
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert PPT to accessible PDF
+        converter.Convert("accessible.pdf")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Ensure you have the required environment variables set
-2. Build the project: `dotnet build`
-3. Run the example: `dotnet run`
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will:
-- Load the source PPT file (`presentation.ppt`)
-- Convert it to PDF format while preserving document structure
-- Save the result as `accessible.pdf`
+- `presentation.ppt`
 
-## Code Explanation
+## Learn More
 
-The example uses the `PptToPdfConverter` class with the `PreserveDocumentStructure` option set to `True`. This ensures that the document structure (headings, lists, tables, etc.) is preserved in the PDF output, making it more accessible for screen readers and other assistive technologies.
-
-```vb
-Dim converter As New PptToPdfConverter("presentation.ppt", Sub(options)
-    options.PreserveDocumentStructure = True
-End Sub)
-```
-
-## Files
-
-- `Program.vb` - Main program file containing the conversion logic
-- `PptWithPreservedDocumentStructureForAccessiblePdf.vbproj` - Project file
-- `presentation.ppt` - Sample PPT presentation file
-- `accessible.pdf` - Output accessible PDF file (generated after running the example) 
+- [Using PPT to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-ppt-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

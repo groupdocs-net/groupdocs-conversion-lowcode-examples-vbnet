@@ -1,50 +1,52 @@
-# Save to Stream Example
+# Example 2: Save to Stream
 
-This example demonstrates how to save converted documents to a stream using GroupDocs.Conversion.LowCode.
+This example demonstrates how to save the converted file to a `Stream`.
 
-## Features
+## Code Example
 
-- Converts DOCX files to PDF format
-- Saves converted documents to stream
-- Uses environment variables for license keys
-- Stream-based saving approach for memory efficiency
+```vb
+Imports System
+Imports System.IO
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey As String = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey As String = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-## Environment Variables
+        ' Load DOCX file as stream
+        Using inputStream As FileStream = File.OpenRead("business-plan.docx"),
+              outputStream As FileStream = File.Create("business-plan.pdf")
 
-Set the following environment variables before running the example:
+            ' Create a converter from stream
+            Dim converter As New DocxToPdfConverter(inputStream)
 
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+            ' Convert DOCX to PDF
+            converter.Convert(outputStream)
+        End Using
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `business-plan.docx` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `business-plan.pdf` file in the same directory.
+- `business-plan.docx`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Opening input and output file streams
-- Creating a DocxToPdfConverter instance with input stream
-- Converting the DOCX file to PDF format and saving to output stream
-- Proper resource disposal with Using statement
-
-## Files
-
-- `Program.vb` - Main program file
-- `business-plan.docx` - Sample input file
-- `business-plan.pdf` - Generated output file (after running) 
+- [Saving Converted Documents](https://docs.groupdocs.net/conversion/developer-guide/saving-converted-documents/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

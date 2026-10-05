@@ -1,49 +1,53 @@
-# DOC to PDF (Specific Pages) Example
+# Convert Specific DOC Pages to PDF
 
-This example demonstrates how to convert specific pages of a DOC file to PDF format using GroupDocs.Conversion.LowCode.
+To convert only a portion of the document instead of all pages. You can specify which pages to include in the output PDF using the [Pages](https://reference.groupdocs.net/conversion/GroupDocs.Conversion.Options.Convert/IPagedConvertOptions/PageNumber/) property of `PdfConvertOptions` class.
 
-## Features
+As an alternative you can use `PageNumber` to specify the page number to start conversion from and `PagesCount` to set number of pages to convert starting from `PageNumber`. 
 
-- Converts only selected pages of a DOC file to PDF format
-- Sets conversion options to specify page numbers
-- Uses environment variables for license keys
-- Efficient conversion for partial document export
+The following example shows how to convert the first three pages of a DOC file to PDF:
 
-## Prerequisites
+## Code Example
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+```vb
+Imports System
+Imports System.Collections.Generic
+Imports GroupDocs.Conversion.LowCode
 
-## Environment Variables
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey As String = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey As String = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-Set the following environment variables before running the example:
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Create the converter
+        Dim converter As New DocToPdfConverter("business-plan.doc")
+
+        ' Save first three pages to PDF
+        converter.Convert("pages-1-2-3.pdf", Sub(convertOptions)
+                                                convertOptions.Pages = New List(Of Integer) From {1, 2, 3}
+                                            End Sub)
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `business-plan.doc` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `pages-1-2-3.pdf` file containing only the first three pages of the original document.
+- `business-plan.doc`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating a DocToPdfConverter instance
-- Setting conversion options to specify which pages to convert
-- Converting only selected pages (1, 2, and 3) to PDF format
-
-## Files
-
-- `Program.vb` - Main program file
-- `business-plan.doc` - Sample input file
-- `pages-1-2-3.pdf` - Generated output file with selected pages (after running) 
+- [Using DOC to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-doc-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

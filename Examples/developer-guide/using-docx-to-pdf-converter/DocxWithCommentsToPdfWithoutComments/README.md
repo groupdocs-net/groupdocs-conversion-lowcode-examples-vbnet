@@ -1,49 +1,50 @@
-# DOCX with Comments to PDF Without Comments Example
+# Convert DOCX with Comments to PDF without Comments
 
-This example demonstrates how to convert DOCX files with comments to PDF format while hiding the comments using GroupDocs.Conversion.LowCode.
+By default, comments are added to the output PDF file, see this [with-comments.pdf](https://docs.groupdocs.net/conversion/_sample_files/developer-guide/using-docx-to-pdf-converter/with-comments.pdf) as an example of PDF file with comments.
 
-## Features
+The following example shows how to convert a DOCX file that contains comments and save a PDF file without comments.
 
-- Converts DOCX files with comments to PDF format
-- Hides comments during conversion using CommentDisplayMode
-- Uses environment variables for license keys
-- Clean PDF output without comment annotations
+## Code Example
 
-## Prerequisites
+```vb
+Imports GroupDocs.Conversion.LowCode
+Imports GroupDocs.Conversion.Options.Load
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
-- Valid GroupDocs license keys
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-## Environment Variables
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-Set the following environment variables before running the example:
+        ' Hide comments using CommentDisplayMode
+        Dim converter As New DocxToPdfConverter("with-comments.docx", Sub(options)
+            options.CommentDisplayMode = WordProcessingCommentDisplay.Hidden
+        End Sub)
 
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert DOCX to PDF
+        converter.Convert("no-comments.pdf")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Build the project
-2. Ensure the `with-comments.docx` file is in the output directory
-3. Run the executable
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will generate a `no-comments.pdf` file without comments in the same directory.
+- `with-comments.docx`
 
-## Code Explanation
+## Learn More
 
-The example demonstrates:
-- Loading license keys from environment variables
-- Creating a DocxToPdfConverter instance with load options
-- Setting CommentDisplayMode to Hidden to exclude comments
-- Converting the DOCX file to PDF format without comments
-
-## Files
-
-- `Program.vb` - Main program file
-- `with-comments.docx` - Sample input file with comments
-- `no-comments.pdf` - Generated output file without comments (after running) 
+- [Using DOCX to PDF Converter](https://docs.groupdocs.net/conversion/developer-guide/using-docx-to-pdf-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)

@@ -1,54 +1,47 @@
-# Flatten Fields in Form Fillable PDF
+# Flatten Fields in Form-Fillable PDF
 
-This example demonstrates how to convert a PDF document with form fields to PDF/A format while flattening all form fields using GroupDocs.Conversion.LowCode.
+The following example shows how to convert a form‑fillable PDF into static content by flattening form fields.
 
-## Features
+## Code Example
 
-- Converts PDF documents to PDF/A format
-- Flattens all form fields in the source PDF
-- Uses environment variables for license configuration
-- Simple and clean API usage
+```vb
+Imports GroupDocs.Conversion.LowCode
 
-## Prerequisites
+Module Program
+    Sub Main()
+        ' Load license keys
+        Dim publicKey = Environment.GetEnvironmentVariable("GD_PUBLIC_KEY")
+        Dim privateKey = Environment.GetEnvironmentVariable("GD_PRIVATE_KEY")
 
-- .NET 6 or later
-- GroupDocs.Conversion.LowCode package
+        ' Apply license
+        License.Set(publicKey, privateKey)
 
-## Environment Variables
+        ' Hide tracked changes through load options
+        Dim converter As New PdfToPdfAConverter("form-fields.pdf", Sub(options)
+            options.FlattenAllFields = True
+        End Sub)
 
-Set the following environment variables with your GroupDocs license keys:
-
-```bash
-GD_PUBLIC_KEY=your_public_key_here
-GD_PRIVATE_KEY=your_private_key_here
+        ' Convert PDF to PDF/A
+        converter.Convert("flattened.pdf")
+    End Sub
+End Module
 ```
 
 ## How to Run
 
-1. Ensure you have the required environment variables set
-2. Build the project: `dotnet build`
-3. Run the example: `dotnet run`
+1. Install the .NET SDK for `net10.0`.
+2. Set the `GD_PUBLIC_KEY` and `GD_PRIVATE_KEY` environment variables to your license keys.
+3. Open this directory and run the example:
+   ```bash
+   dotnet run
+   ```
 
-## Expected Output
+## Input Files
 
-The example will:
-- Load the source PDF file (`form-fields.pdf`)
-- Convert it to PDF/A format with all form fields flattened
-- Save the result as `flattened.pdf`
+- `form-fields.pdf`
 
-## Code Explanation
+## Learn More
 
-The example uses the `PdfToPdfAConverter` class with the `FlattenAllFields` option set to `True`. This ensures that all interactive form fields in the source PDF are flattened (converted to static content) during the conversion to PDF/A format.
-
-```vb
-Dim converter As New PdfToPdfAConverter("form-fields.pdf", Sub(options)
-    options.FlattenAllFields = True
-End Sub)
-```
-
-## Files
-
-- `Program.vb` - Main program file containing the conversion logic
-- `FlattenFieldsInFormFillablePdf.vbproj` - Project file
-- `form-fields.pdf` - Sample PDF file with form fields
-- `flattened.pdf` - Output PDF/A file (generated after running the example) 
+- [Using PDF to PDF/A Converter](https://docs.groupdocs.net/conversion/developer-guide/using-pdf-to-pdfa-converter/) in the GroupDocs.Conversion.LowCode documentation
+- [GroupDocs.Conversion.LowCode](https://www.nuget.org/packages/GroupDocs.Conversion.LowCode) on NuGet
+- [Get a temporary license](https://purchase.groupdocs.net/temporary-license/)
